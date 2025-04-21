@@ -26,36 +26,30 @@ function UserForm({ fetchUsers, editingUser, setEditingUser, users }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const userData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
       age: formData.age,
     };
-
-    console.log('Form Data to be sent:', userData); // Debugging output
-
+    
+    console.log('Form Data to be sent:', userData);  // Log the data being sent
+  
     try {
-      // Update the backend URL to your Render deployment
-      const baseURL = 'https://postgresusermanagement-2.onrender.com/api/users';
-
       if (editingUser) {
-        // Update user request (PUT)
-        await axios.put(`${baseURL}/${editingUser.id}`, userData);
-        setEditingUser(null); // Clear the editing state
+        await axios.put(`https://postgresusermanagement-2.onrender.com/api/users/${editingUser.id}`, userData);
+        setEditingUser(null);
       } else {
-        // Create new user (POST)
-        await axios.post(baseURL, userData);
+        await axios.post('https://postgresusermanagement-2.onrender.com/api/users', userData);
       }
-
-      // Reset form and fetch updated user list
+  
       setFormData({ firstName: '', lastName: '', email: '', age: '' });
       fetchUsers();
     } catch (error) {
       console.error('Error during form submission:', error);
     }
   };
+  
 
   return (
     <div style={{ marginBottom: '20px' }}>

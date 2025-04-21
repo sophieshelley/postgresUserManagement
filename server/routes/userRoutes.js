@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User'); 
 const Sequelize = require('sequelize');
 
+// GET /api/users
 router.get('/', async (req, res) => {
   try {
     const { sort, search } = req.query;
@@ -19,13 +20,13 @@ router.get('/', async (req, res) => {
 
     if (sort === 'asc') {
       queryOptions.order = [
-        ['firstName', 'ASC'],  
-        ['lastName', 'ASC']    
+        ['firstName', 'ASC'],
+        ['lastName', 'ASC']
       ];
     } else if (sort === 'desc') {
       queryOptions.order = [
-        ['firstName', 'DESC'], 
-        ['lastName', 'DESC']    
+        ['firstName', 'DESC'],
+        ['lastName', 'DESC']
       ];
     }
 
@@ -36,24 +37,36 @@ router.get('/', async (req, res) => {
   }
 });
 
+// POST /api/users
 router.post('/', async (req, res) => {
-  
   console.log('Received data:', req.body);
 
   const { firstName, lastName, email, age } = req.body;
 
   try {
-    if (!firstName || !lastName || !email || !age) {
-      return res.status(400).json({ message: 'All fields are required.' });
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      (age === undefined || age === null || isNaN(Number(age)))
+    ) {
+      return res.status(400).json({ message: 'All fields are required and age must be a number.' });
     }
 
-    const newUser = await User.create({ firstName, lastName, email, age });
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      age: Number(age)  // Make sure age is stored as a number
+    });
+
     res.status(201).json(newUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
+// PUT /api/users/:id
 router.put('/:id', async (req, res) => {
   try {
     const updatedUser = await User.findByPk(req.params.id);
@@ -61,13 +74,14 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    await updatedUser.update(req.body); 
+    await updatedUser.update(req.body);
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
+// DELETE /api/users/:id
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
