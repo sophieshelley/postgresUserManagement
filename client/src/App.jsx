@@ -11,7 +11,8 @@ function App() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('https://postgresusermanagement-2.onrender.com/users');
+      const res = await axios.get('https://postgresusermanagement-2.onrender.com/api/users');
+
       console.log('Fetched users:', res.data);
       setUsers(res.data);
     } catch (error) {
