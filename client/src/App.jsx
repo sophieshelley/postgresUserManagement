@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Add React import
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserList from './components/UserList';
 import UserForm from './components/UserForm';

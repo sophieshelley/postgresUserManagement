@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User'); 
 const Sequelize = require('sequelize');
 
-// GET /api/users
 router.get('/', async (req, res) => {
   try {
     const { sort, search } = req.query;
@@ -37,7 +36,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/users
 router.post('/', async (req, res) => {
   console.log('Received data:', req.body);
 
@@ -57,7 +55,7 @@ router.post('/', async (req, res) => {
       firstName,
       lastName,
       email,
-      age: Number(age)  // Make sure age is stored as a number
+      age: Number(age)  
     });
 
     res.status(201).json(newUser);
@@ -66,7 +64,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/users/:id
 router.put('/:id', async (req, res) => {
   try {
     const updatedUser = await User.findByPk(req.params.id);
@@ -81,7 +78,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/users/:id
+
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
