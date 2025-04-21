@@ -11,8 +11,9 @@ function App() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/users');
-      console.log('Fetched users:', res.data); 
+      const res = await axios.get('https://postgresusermanagement-2.onrender.com/users');
+
+      console.log('Fetched users:', res.data);
       setUsers(res.data);
     } catch (error) {
       console.error(error);
@@ -25,7 +26,7 @@ function App() {
 
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/users/search?name=${searchTerm}`);
+      const res = await axios.get(`https://postgresusermanagement-2.onrender.com/api/users/search?name=${searchTerm}`);
       setUsers(res.data);
     } catch (error) {
       console.error(error);
@@ -62,7 +63,7 @@ function App() {
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              handleSearch(); 
+              handleSearch();
             }
           }}
           style={{ marginRight: '10px', padding: '5px' }}
@@ -76,8 +77,6 @@ function App() {
       <UserForm fetchUsers={fetchUsers} editingUser={editingUser} setEditingUser={setEditingUser} />
 
       <UserList users={users} fetchUsers={fetchUsers} setEditingUser={setEditingUser} searchTerm={searchTerm} />
-
-
     </div>
   );
 }
