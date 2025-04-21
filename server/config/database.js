@@ -6,7 +6,7 @@ const sequelize = new Sequelize('postgresusermanagement', 'postgresusermanagemen
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // Important for Render-hosted Postgres
+      rejectUnauthorized: false, 
     },
   },
 });

@@ -12,7 +12,7 @@ function App() {
   const fetchUsers = async () => {
     try {
       const res = await axios.get('http://localhost:3000/api/users');
-      console.log('Fetched users:', res.data); // This is the log to check if the users are fetched
+      console.log('Fetched users:', res.data); 
       setUsers(res.data);
     } catch (error) {
       console.error(error);

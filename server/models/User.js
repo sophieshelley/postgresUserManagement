@@ -20,7 +20,7 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
 }, {
-  timestamps: true, // adds createdAt and updatedAt fields automatically
+  timestamps: true, 
 });
 
 module.exports = User;

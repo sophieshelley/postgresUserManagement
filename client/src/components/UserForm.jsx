@@ -34,7 +34,7 @@ function UserForm({ fetchUsers, editingUser, setEditingUser, users }) {
       age: formData.age,
     };
 
-    console.log('Form Data to be sent:', userData); // Logging the correct userData
+    console.log('Form Data to be sent:', userData); 
 
     try {
       if (editingUser) {

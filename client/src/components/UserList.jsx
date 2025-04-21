@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 function UserList({ users, fetchUsers, setEditingUser, searchTerm }) {
-  // Filter users based on search term
+  
   const filteredUsers = users.filter((user) => {
     const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
     return fullName.includes(searchTerm.toLowerCase());
@@ -11,7 +11,7 @@ function UserList({ users, fetchUsers, setEditingUser, searchTerm }) {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await axios.delete(`http://localhost:3000/api/users/${id}`);
-        fetchUsers();  // Fetch the updated user list
+        fetchUsers();  
       } catch (error) {
         console.error('Error deleting user:', error);
       }
@@ -35,7 +35,7 @@ function UserList({ users, fetchUsers, setEditingUser, searchTerm }) {
         </thead>
         <tbody>
         {filteredUsers.map(user => (
-  <tr key={user.id}> {/* Use user.id here */}
+  <tr key={user.id}> {}
     <td>{user.firstName}</td>
     <td>{user.lastName}</td>
     <td>{user.email}</td>
