@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function UserForm({ fetchUsers, editingUser, setEditingUser, users }) {
@@ -36,20 +34,26 @@ function UserForm({ fetchUsers, editingUser, setEditingUser, users }) {
       age: formData.age,
     };
 
-    console.log('Form Data to be sent:', userData); 
+    console.log('Form Data to be sent:', userData); // Debugging output
 
     try {
+      // Update the backend URL to your Render deployment
+      const baseURL = 'https://postgresusermanagement-2.onrender.com/api/users';
+
       if (editingUser) {
-        await axios.put(`http://localhost:3000/api/users/${editingUser.id}`, userData);
-        setEditingUser(null);
+        // Update user request (PUT)
+        await axios.put(`${baseURL}/${editingUser.id}`, userData);
+        setEditingUser(null); // Clear the editing state
       } else {
-        await axios.post('http://localhost:3000/api/users', userData);
+        // Create new user (POST)
+        await axios.post(baseURL, userData);
       }
 
+      // Reset form and fetch updated user list
       setFormData({ firstName: '', lastName: '', email: '', age: '' });
       fetchUsers();
     } catch (error) {
-      console.error(error);
+      console.error('Error during form submission:', error);
     }
   };
 
