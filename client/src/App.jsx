@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Add React import
 import axios from 'axios';
 import UserList from './components/UserList';
 import UserForm from './components/UserForm';
@@ -12,7 +12,6 @@ function App() {
   const fetchUsers = async () => {
     try {
       const res = await axios.get('https://postgresusermanagement-2.onrender.com/users');
-
       console.log('Fetched users:', res.data);
       setUsers(res.data);
     } catch (error) {
@@ -75,11 +74,9 @@ function App() {
       </div>
 
       <UserForm fetchUsers={fetchUsers} editingUser={editingUser} setEditingUser={setEditingUser} />
-
       <UserList users={users} fetchUsers={fetchUsers} setEditingUser={setEditingUser} searchTerm={searchTerm} />
     </div>
   );
 }
 
 export default App;
-
